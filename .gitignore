@@ -3,4 +3,6 @@
 *.swp
 *.pyc
 *.pyo
+*.mp4
+*.mkv
 __pycache__/
