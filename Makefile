@@ -26,9 +26,6 @@ INPUT_FLAGS += --input-type 'file'  # video file
 INPUT_FLAGS += --input 'YOUR_CUSTOM_VIDEO'
 # INPUT_FLAGS += --input $(RECORD_FILE)
 
-# INPUT_FLAGS += --input-type 'camera' # usb camera
-# INPUT_FLAGS += --input 0
-
 
 # ===== Live Input Configs =====
 LIVE_INPUT_FLAGS += --input-type 'camera'  # live stream
@@ -45,7 +42,10 @@ demo: download_sample_videos
 detect:
 	@ ./src/main.py $(FLAGS) $(INPUT_FLAGS)
 
-record:
+camera_detect:
+	@ ./src/main.py $(FLAGS) --input-type 'camera' --input 0
+
+record_stream:
 	@ echo Recording video into $(RECORD_FILE), press CTRL+C to terminate.
 	@ gst-launch-1.0 -v \
 		souphttpsrc location=$(VIDEO_SOURCE)\
@@ -56,10 +56,10 @@ record:
 		! queue \
 		! filesink location=$(RECORD_FILE) \
 		> /dev/null 2>&1
-play:
+play_record:
 	@ mpv $(RECORD_FILE)
 
-stream:
+live_stream:
 	@ gst-launch-1.0 -v \
 		souphttpsrc location=$(VIDEO_SOURCE)\
 		! decodebin \
@@ -68,7 +68,8 @@ stream:
 		! queue \
 		! ximagesink
 
-live_detect:
+stream_detect:
 	@ ./src/stream_loopback.sh $(VIDEO_SOURCE) &
+	@ sleep 1
 	@ ./src/main.py $(FLAGS) $(LIVE_INPUT_FLAGS)
 	@ pkill gst-launch-1.0

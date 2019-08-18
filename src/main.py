@@ -58,10 +58,9 @@ args = parser.parse_args()
 # Setup video source
 if args.input_type == 'file':
     video_capture = cv2.VideoCapture(args.input)
-    video_width = video_capture.get(cv2.CAP_PROP_FRAME_WIDTH)
-    video_height = video_capture.get(cv2.CAP_PROP_FRAME_HEIGHT)
 elif args.input_type == 'camera':
-    video_capture = cv2.VideoCapture(int(args.input))
+    # video_capture = cv2.VideoCapture(int(args.input))
+    video_capture = cv2.VideoCapture(-1)
 
 # Prepare labels map
 with open(args.labels) as f:

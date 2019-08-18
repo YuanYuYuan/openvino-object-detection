@@ -13,8 +13,11 @@ if [ ! -e $DEVICE ]; then
         sudo modprobe -r v4l2loopback
     fi
     sudo modprobe v4l2loopback video_nr=$DEVICE_ID
+    echo "Created the loopback device $DEVICE"
 fi
 
+pkill gst-launch-1.0
+echo "Streamiing..."
 gst-launch-1.0 -v \
     souphttpsrc location=$VIDEO_SOURCE\
     ! image/jpeg,width=640,height=360 \
