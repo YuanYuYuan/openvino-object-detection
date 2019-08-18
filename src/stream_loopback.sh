@@ -26,4 +26,5 @@ gst-launch-1.0 -v \
     ! videoscale \
     ! queue \
     ! tee \
-    ! v4l2sink device=$DEVICE > /dev/null 2>&1
+    ! v4l2sink device=$DEVICE > /dev/null 2>&1 &
+sleep 1

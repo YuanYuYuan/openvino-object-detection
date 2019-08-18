@@ -69,7 +69,6 @@ live_stream:
 		! ximagesink
 
 stream_detect:
-	@ ./src/stream_loopback.sh $(VIDEO_SOURCE) &
-	@ sleep 1
+	@ ./src/stream_loopback.sh $(VIDEO_SOURCE)
 	@ ./src/main.py $(FLAGS) $(LIVE_INPUT_FLAGS)
 	@ pkill gst-launch-1.0
