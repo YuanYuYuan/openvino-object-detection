@@ -16,8 +16,10 @@ VIDEO_SOURCE = "http://viewer:viewer@117.56.55.194/Media/Streaming?type=jpeg&dev
 
 
 # ===== Sample Configs =====
-SAMPLE_VIDEO = './videos/bus_station.mp4'
+SAMPLE_VIDEO = './videos/九份老街.mkv'
+# SAMPLE_VIDEO = './videos/bus_station.mp4'
 # SAMPLE_VIDEO = './videos/motorcycle.mp4'
+# SAMPLE_VIDEO = './videos/scooters.mp4'
 # SAMPLE_VIDEO = './videos/scooters.mp4'
 
 
@@ -37,13 +39,13 @@ download_sample_videos:
 	@ cd ./videos && make download
 
 demo: download_sample_videos
-	@ ./src/main.py $(FLAGS) --input-type 'file'  --input $(SAMPLE_VIDEO)
+	@ python3 ./src/main.py $(FLAGS) --input-type 'file'  --input $(SAMPLE_VIDEO)
 
 detect:
-	@ ./src/main.py $(FLAGS) $(INPUT_FLAGS)
+	@ python3 ./src/main.py $(FLAGS) $(INPUT_FLAGS)
 
 camera_detect:
-	@ ./src/main.py $(FLAGS) --input-type 'camera' --input 0
+	@ python3 ./src/main.py $(FLAGS) --input-type 'camera' --input 0
 
 record_stream:
 	@ echo Recording video into $(RECORD_FILE), press CTRL+C to terminate.
@@ -70,5 +72,5 @@ live_stream:
 
 stream_detect:
 	@ ./src/stream_loopback.sh $(VIDEO_SOURCE)
-	@ ./src/main.py $(FLAGS) $(LIVE_INPUT_FLAGS)
+	@ python3 ./src/main.py $(FLAGS) $(LIVE_INPUT_FLAGS)
 	@ pkill gst-launch-1.0
