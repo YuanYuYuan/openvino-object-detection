@@ -32,6 +32,12 @@ parser.add_argument(
     help='video input'
 )
 parser.add_argument(
+    '--device',
+    default='MYRIAD',
+    choices=['MYRIAD', 'GPU'],
+    help='Computing device'
+)
+parser.add_argument(
     '--labels',
     default='../models/mscoco_label_map.yaml',
     help='labels mapping file'
@@ -74,7 +80,7 @@ logging.basicConfig(
 )
 
 # Load model into inference engine
-plugin = IEPlugin('MYRIAD')
+plugin = IEPlugin(args.device)
 net = IENetwork(model=args.model, weights=args.weights)
 input_blob = next(iter(net.inputs))
 out_blob = next(iter(net.outputs))
@@ -169,10 +175,13 @@ while video_capture.isOpened():
         if not retrieved:
             break
 
+        timer = time.time()
         exec_net.start_async(
             request_id=next_request_id if async_mode else cur_request_id,
             inputs={input_blob: preprocess(frame)}
         )
+        inferece_time = time.time() - timer
+
         if exec_net.requests[cur_request_id].wait(-1) == 0:
             result = exec_net.requests[cur_request_id].outputs[out_blob]
             for obj in result[0][0]:
@@ -195,12 +204,20 @@ while video_capture.isOpened():
                             label=labels_map[class_id],
                             prob=prob,
                         )
+        # print inference time message
+        if async_mode:
+            inf_time_msg = "Inference time: N\\A for async mode"
+        else:
+            inf_time_msg = "Inference time: %.3f ms" % (inferece_time * 1000)
+        cv2.putText(frame, inf_time_msg, (10, 30), cv2.FONT_HERSHEY_DUPLEX, 1, (0, 255, 0), 1)
+
         if args.gui:
             cv2.imshow('Detection Results', frame)
         if async_mode:
             cur_request_id, next_request_id = next_request_id, cur_request_id
         if args.output is not None:
             video_writer.write(frame)
+
 
         key = cv2.waitKey(1)
         if key == 27:
