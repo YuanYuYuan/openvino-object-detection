@@ -3,9 +3,9 @@
 This is a project appling object detection on embedded devices
 with openvino and Intel Movidius Neural Compute Stick 2(NCS2).
 
-## Demo
+## Demo Video
 
-<iframe width="600" height="400" src="https://www.youtube.com/embed/bDuQae6vaW0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![](https://img.youtube.com/vi/bDuQae6vaW0/maxresdefault.jpg)](https://www.youtube.com/watch?v=bDuQae6vaW0)
 
 ## Reference
 
