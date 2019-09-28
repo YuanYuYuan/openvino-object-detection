@@ -19,7 +19,6 @@ VIDEO_SOURCE = "http://viewer:viewer@117.56.55.194/Media/Streaming?type=jpeg&dev
 SAMPLE_VIDEO = './videos/bus_station.mp4'
 # SAMPLE_VIDEO = './videos/motorcycle.mp4'
 # SAMPLE_VIDEO = './videos/scooters.mp4'
-# SAMPLE_VIDEO = './videos/scooters.mp4'
 # SAMPLE_VIDEO = './videos/九份老街.mkv'
 
 
