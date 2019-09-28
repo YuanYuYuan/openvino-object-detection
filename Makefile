@@ -39,13 +39,13 @@ download_sample_videos:
 	@ cd ./videos && make download
 
 demo: download_sample_videos
-	@ python3 ./src/main.py $(FLAGS) --input-type 'file'  --input $(SAMPLE_VIDEO)
+	@ ./src/main.py $(FLAGS) --input-type 'file'  --input $(SAMPLE_VIDEO)
 
 detect:
-	@ python3 ./src/main.py $(FLAGS) $(INPUT_FLAGS)
+	@ ./src/main.py $(FLAGS) $(INPUT_FLAGS)
 
 camera_detect:
-	@ python3 ./src/main.py $(FLAGS) --input-type 'camera' --input 0
+	@ ./src/main.py $(FLAGS) --input-type 'camera' --input 0
 
 record_stream:
 	@ echo Recording video into $(RECORD_FILE), press CTRL+C to terminate.
@@ -72,5 +72,5 @@ live_stream:
 
 stream_detect:
 	@ ./src/stream_loopback.sh $(VIDEO_SOURCE)
-	@ python3 ./src/main.py $(FLAGS) $(LIVE_INPUT_FLAGS)
+	@ ./src/main.py $(FLAGS) $(LIVE_INPUT_FLAGS)
 	@ pkill gst-launch-1.0
