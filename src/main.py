@@ -28,7 +28,7 @@ parser.add_argument(
 )
 parser.add_argument(
     '--input',
-    default='../videos/九份老街.mkv',
+    default='../videos/demo.mkv',
     help='video input'
 )
 parser.add_argument(
